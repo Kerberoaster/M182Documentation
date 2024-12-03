@@ -1,113 +1,117 @@
 
-# LB2 - Beschreibung und Recherche der Software Sysmon (15%)
+# LB2 - Sysmon: Beschreibung, Installation, Konfiguration (15%)
 
-## 1. Lernziele
-
-- Ich kann die Applikation Sysmon in eigenen Worten beschreiben.
-- Ich kann Sysmon automatisiert installieren lassen.
-- Ich kann Sysmon manuell installieren.
-- Ich kann Sysmon nach Vorgaben konfigurieren.
+## Inhaltsverzeichnis
+1. [Lernziele](#lernziele)
+2. [Recherche zu Sysmon](#recherche-zu-sysmon)
+3. [Installation von Sysmon](#installation-von-sysmon)
+4. [Konfiguration von Sysmon](#konfiguration-von-sysmon)
+5. [Fazit](#fazit)
 
 ---
 
-## 2. Beschreibung von Sysmon
+## 1. Lernziele
 
-### Was ist Sysmon und wofür wird es verwendet?
+- **Beschreibung von Sysmon:** Verstehen, wofür Sysmon verwendet wird.
+- **Manuelle Installation:** Sysmon auf Windows-Systemen installieren können.
+- **Automatisierte Installation:** Installation und Einrichtung mittels Skripten durchführen.
+- **Konfiguration:** Sysmon mithilfe eines Konfigurationsfiles anpassen.
 
-Sysmon (System Monitor) ist ein Teil der Sysinternals-Tools von Microsoft, das detaillierte Ereignisse im Zusammenhang mit Prozessen, Netzwerkverbindungen und Änderungen an der Dateisystemstruktur überwacht. Es wird hauptsächlich für die Sicherheitsüberwachung und das Troubleshooting verwendet.
+---
 
-- **Anwendungen:**
-  - Überwachung verdächtiger Aktivitäten auf Systemen.
-  - Unterstützung bei der Forensik durch detaillierte Log-Ereignisse.
-  - Erkennung von Angriffsmustern durch Analyse der Windows-Ereignisprotokolle.
+## 2. Recherche zu Sysmon
 
-- **Aktuellste Version:**
-  Die aktuellste Version von Sysmon ist [Sysmon 15.0](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) (Stand November 2024).
+### Was ist Sysmon?
+Sysmon (System Monitor) ist ein Tool aus der Sysinternals-Suite von Microsoft, das detaillierte Ereignisse zu Prozessen, Netzwerkverbindungen und Änderungen an der Dateisystemstruktur aufzeichnet. Es wird häufig für Sicherheits- und Forensikzwecke eingesetzt.
 
-- **Beispiele für Use-Cases:**
-  - Nachverfolgung von Malware-Aktivitäten durch Prozessüberwachung.
-  - Überwachung von Änderungen an Registrierungsschlüsseln.
-  - Logging von Netzwerkverbindungen für forensische Untersuchungen.
+### Wofür wird Sysmon verwendet?
+- Überwachung verdächtiger Prozesse und Netzwerkaktivitäten.
+- Sammlung detaillierter Systemereignisse für Forensik und Troubleshooting.
+- Unterstützung bei der Bedrohungserkennung in Kombination mit SIEM-Systemen.
+
+### Aktuellste Version von Sysmon
+Die aktuellste Version, die auf dem System verwendet wird, ist **v15.15**.
+
+### Beispielanwendungen/Use-Cases:
+- **Forensische Analyse:** Erkennung bösartiger Aktivitäten, z. B. durch Prozessüberwachung.
+- **Bedrohungserkennung:** Monitoring von anomalen Netzwerkaktivitäten.
+- **Systemüberwachung:** Verfolgung von Dateiänderungen oder Registry-Zugriffen.
 
 ---
 
 ## 3. Installation von Sysmon
 
-### Manuelle Installation von Sysmon
-
-1. **Download:**
-   - Die Sysmon-Executable kann direkt von der [Microsoft Sysinternals-Seite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) heruntergeladen werden.
-
-2. **Installation:**
-   - Öffne die Eingabeaufforderung mit Administratorrechten.
-   - Führe den folgenden Befehl aus, um Sysmon mit einer Konfigurationsdatei zu installieren:
+### Manuelle Installation
+1. **Download von Sysmon:**
+   - Lade die Sysmon-Binary (`Sysmon64.exe`) von der offiziellen Sysinternals-Website herunter: [live.sysinternals.com](https://live.sysinternals.com/).
+2. **Installation starten:**
+   - Führe in der Eingabeaufforderung oder PowerShell den Befehl aus:
+     ```powershell
+     .\Sysmon64.exe -accepteula -i C:\Path\To\ConfigFile.xml
      ```
-     sysmon.exe -accepteula -i <Pfad zur Config-Datei>
+     Der Parameter `-i` gibt das Konfigurationsfile an.
+3. **Überprüfung:**
+   - Stelle sicher, dass der Sysmon-Dienst läuft:
+     ```powershell
+     Get-Service -Name Sysmon64
      ```
-   - Beispiel:
-     ```
-     sysmon.exe -accepteula -i sysmonconfig.xml
-     ```
 
-3. **Prüfung der Installation:**
-   - Nach der Installation können die Ereignisse über die Windows-Ereignisanzeige unter **Applications and Services Logs > Microsoft > Windows > Sysmon** überprüft werden.
+### Automatisierte Installation
+Die automatisierte Installation erfolgt mithilfe des folgenden PowerShell-Skripts (`install-sysinternals.ps1`):
 
----
-
-### Automatisierte Installation von Sysmon in unserer Umgebung
-
-In unserer Umgebung wurde Sysmon mithilfe des Scripts `scripts/install-sysinternals.ps1` installiert. Dieses Skript übernimmt folgende Aufgaben:
-
-- Herunterladen der Sysmon-Executable.
-- Installation von Sysmon mit einer Standardkonfigurationsdatei.
-- Einrichtung eines geplanten Tasks für die regelmäßige Aktualisierung.
-
-Ein Beispiel für die PowerShell-Befehle aus dem Skript:
 ```powershell
-Invoke-WebRequest -Uri "https://download.sysinternals.com/files/Sysmon.zip" -OutFile "C:\Tools\Sysmon.zip"
-Expand-Archive -Path "C:\Tools\Sysmon.zip" -DestinationPath "C:\Tools\Sysmon"
-Start-Process -FilePath "C:\Tools\Sysmon\Sysmon.exe" -ArgumentList "-accepteula -i C:\Tools\SysmonConfig.xml"
+Write-Host "Installing SysInternals Tooling..."
+$sysinternalsDir = "C:\Tools\Sysinternals"
+$sysmonDir = "C:\ProgramData\Sysmon"
+
+# Verzeichnis erstellen
+If(!(test-path $sysinternalsDir)) {
+  New-Item -ItemType Directory -Force -Path $sysinternalsDir
+}
+
+# Sysmon und andere Tools herunterladen
+(New-Object System.Net.WebClient).DownloadFile('https://live.sysinternals.com/Sysmon64.exe', "$sysinternalsDir\Sysmon64.exe")
+
+# Sysmon starten
+Start-Process -FilePath "$sysinternalsDir\Sysmon64.exe" -ArgumentList "-accepteula -i $sysmonDir\sysmonConfig.xml"
 ```
 
 ---
 
 ## 4. Konfiguration von Sysmon
 
-### Config-File in unserer Umgebung
-
-Das Config-File für Sysmon in unserer Umgebung basiert auf Best-Practices und wurde angepasst, um gängige Sicherheitsanforderungen zu erfüllen.
-
-- **Inhalt der Datei:**
-  - Regeln für die Überwachung spezifischer Prozesse.
-  - Definition von Ausnahmen für bekannte sichere Anwendungen.
-  - Logging von Netzwerkverbindungen und Dateiänderungen.
-
-Beispielauszug:
-```xml
-<Sysmon schemaversion="4.22">
-  <EventFiltering>
-    <ProcessCreate onmatch="include">
-      <Image condition="contains">powershell.exe</Image>
-    </ProcessCreate>
-    <NetworkConnect onmatch="include" />
-    <FileCreateTime onmatch="exclude">
-      <Image condition="contains">C:\Windows\</Image>
-    </FileCreateTime>
-  </EventFiltering>
-</Sysmon>
-```
+### Verwendetes Konfigurationsfile
+Das Sysmon-Config-File, das auf dem System verwendet wird, befindet sich unter:  
+`C:\ProgramData\Sysmon\sysmonConfig.xml`
 
 ### Struktur des Config-Files
+Das Config-File nutzt Regeln zur Steuerung, welche Ereignisse erfasst werden. Es ist modular aufgebaut:
+- **Hashing Algorithms:** SHA1, MD5, SHA256, IMPHASH.
+- **Process Monitoring:** Überwachung bestimmter Prozesse wie `sc.exe`, `mshta.exe`.
+- **Netzwerküberwachung:** Aufzeichnung von Verbindungen und DNS-Abfragen.
+- **Erweiterte Filter:** Regeln für spezifische Bedrohungsszenarien (z. B. `ParentImage`, `CommandLine`).
 
-1. **Root-Element:** `<Sysmon>` definiert die Schema-Version.
-2. **EventFiltering:** Enthält Regeln, um spezifische Ereignisse einzuschließen oder auszuschließen.
-3. **Regeln:**
-   - `<ProcessCreate>`: Überwachung von neu erstellten Prozessen.
-   - `<NetworkConnect>`: Logging von Netzwerkverbindungen.
-   - `<FileCreateTime>`: Erfassung von Änderungen an Datei-Zeitstempeln.
+### Beispielregel (aus der Config):
+```xml
+<RuleGroup name="ProcessCreate" groupRelation="or">
+  <Rule name="Include All Executables">
+    <Image condition="contains">sethc.exe</Image>
+    <CommandLine condition="contains">-Embedding</CommandLine>
+  </Rule>
+</RuleGroup>
+```
 
 ---
 
 ## 5. Fazit
 
-Die Nutzung von Sysmon in unserer Umgebung ermöglicht eine tiefgreifende Überwachung und Erkennung von Sicherheitsvorfällen. Durch die automatisierte Installation und die Verwendung einer standardisierten Konfiguration wird sichergestellt, dass alle relevanten Ereignisse protokolliert werden. Das Config-File bietet Flexibilität, um Sysmon an unsere spezifischen Bedürfnisse anzupassen.
+Sysmon ist ein vielseitiges Werkzeug, das tiefgehende Einblicke in Systemaktivitäten ermöglicht. Die Kombination aus manueller und automatisierter Installation, gepaart mit einer gut durchdachten Konfiguration, erlaubt eine effiziente Überwachung und Forensik in komplexen Umgebungen.
+
+---
+
+### Platzhalter für Screenshots:
+1. **Screenshot 1:** Download von Sysmon.
+2. **Screenshot 2:** Manuelle Installation über PowerShell.
+3. **Screenshot 3:** Automatisierte Installation via Script.
+4. **Screenshot 4:** Config-File in der Verzeichnisstruktur.
+5. **Screenshot 5:** Beispielregel im Config-File.
