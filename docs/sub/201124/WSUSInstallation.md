@@ -23,7 +23,7 @@
    - Server Manager öffnen und zu **Verwalten > Rollen und Features hinzufügen** navigieren.
    - Die Rolle **Windows Server Update Services** auswählen.
    - **Wählen Sie Speicherort:** Speicher für Updates auf eine zusätzliche virtuelle Festplatte (mindestens 30 GB) legen.
-   - Installation starten und abschließen.
+   - Installation starten und abschliessen.
 
    _Platzhalter für Screenshot: Rollen und Features hinzufügen_
 
