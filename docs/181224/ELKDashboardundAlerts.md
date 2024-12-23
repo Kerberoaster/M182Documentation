@@ -57,6 +57,3 @@ Mit zwei verschiedenen Regeln habe ich versucht, Alerts zu generieren. Die Logs 
 - Screenshot der Settings für die getesteten Regeln:
   ![Regel Einstellungen WMI](upload:file-4AhZohHy9zCiVzx2yG1tyD)
 
----
-
-Die Dokumentation zeigt, dass die Regeln korrekt definiert wurden, jedoch der Alert nicht ausgelöst wurde, obwohl die zugrunde liegenden Logs vorhanden waren. Weitere Tests oder Anpassungen könnten erforderlich sein, um die Ursache zu identifizieren.

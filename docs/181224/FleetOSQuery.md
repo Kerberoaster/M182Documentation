@@ -70,7 +70,3 @@ Nach dem Ausführen der Abfrage auf meinem System wurden die folgenden Informati
 *Screenshot der Abfrageergebnisse:*
 
 ![Abfrageergebnisse OSQueryInfo](upload:file-4AhZohHy9zCiVzx2yG1tyD)
-
----
-
-Diese Dokumentation bietet einen Überblick über Fleet und demonstriert die Anwendung von zwei spezifischen Abfragen zur Systemüberwachung und -analyse.

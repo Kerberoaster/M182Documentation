@@ -1,7 +1,8 @@
 * [Home](/)
 
     * [181224](181224/)
-        * [OSQuery](181224/OSQuery.md)
+        * [OSQuery](181224/FleetOSQuery.md)
+        * [ELKDahboard+Alerts](181224/ELKDashboardundAlerts.md)
 
     * [041224](041224/)
         * [OSQuery](041224/OSQuery.md)
