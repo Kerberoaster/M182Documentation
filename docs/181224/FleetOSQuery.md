@@ -1,16 +1,16 @@
 # Dokumentation: Fleet und Abfrageergebnisse
 
-## 1.2 Aufträge und Bewertungskriterien
+## Aufträge und Bewertungskriterien
 
-### **Recherche - Fleet (0-4P)**
+### **Recherche - Fleet**
 
 **Was ist Fleet? Wofür wird es verwendet?**
 
-Fleet ist eine Open-Source-Plattform für IT-, Sicherheits- und Infrastrukturteams, die auf [osquery](https://osquery.io/) basiert. Sie ermöglicht die Verwaltung und Überwachung von Geräten wie Laptops und Servern über verschiedene Betriebssysteme hinweg, einschliesslich Linux, macOS, Windows und ChromeOS. Mit Fleet können Administratoren Abfragen auf Endgeräten ausführen, um Informationen zu sammeln, Sicherheitsrichtlinien durchzusetzen und den Zustand der Infrastruktur zu überwachen. :contentReference[oaicite:0]{index=0}
+Fleet ist eine Open-Source-Plattform für IT-, Sicherheits- und Infrastrukturteams, die auf [osquery](https://osquery.io/) basiert. Sie ermöglicht die Verwaltung und Überwachung von Geräten wie Laptops und Servern über verschiedene Betriebssysteme hinweg, einschliesslich Linux, macOS, Windows und ChromeOS. Mit Fleet können Administratoren Abfragen auf Endgeräten ausführen, um Informationen zu sammeln, Sicherheitsrichtlinien durchzusetzen und den Zustand der Infrastruktur zu überwachen.
 
 **Was ist die aktuellste Version von Fleet?**
 
-Die aktuellste Version von Fleet ist **v4.60.1**, veröffentlicht am 18. Dezember 2024. :contentReference[oaicite:1]{index=1}
+Die aktuellste Version von Fleet ist **v4.60.1**, veröffentlicht am 18. Dezember 2024.
 
 **Was sind Beispiel-Anwendungen/Use-Cases, bei denen Fleet helfen kann?**
 
@@ -24,7 +24,7 @@ Die aktuellste Version von Fleet ist **v4.60.1**, veröffentlicht am 18. Dezembe
 
 ---
 
-### **Dokumentation / Testing (1) - Fleet (0-4P)**
+### **Dokumentation / Testing Fleet**
 
 **Ausgewählte Abfrage: `drivers`**
 
@@ -45,11 +45,11 @@ Nach dem Ausführen der Abfrage auf meinem Windows-System wurden alle installier
 
 *Screenshot der Abfrageergebnisse:*
 
-![Abfrageergebnisse Drivers](upload:file-4AhZohHy9zCiVzx2yG1tyD)
+![Bild](/../_Images/quertydriver.png)
 
 ---
 
-### **Dokumentation / Testing (2) - Fleet (0-4P)**
+### **Dokumentation / Testing- Fleet**
 
 **Ausgewählte Abfrage: `osquery_info`**
 
@@ -69,4 +69,4 @@ Nach dem Ausführen der Abfrage auf meinem System wurden die folgenden Informati
 
 *Screenshot der Abfrageergebnisse:*
 
-![Abfrageergebnisse OSQueryInfo](upload:file-4AhZohHy9zCiVzx2yG1tyD)
+![Bild](/../_Images/queryinfo.png)

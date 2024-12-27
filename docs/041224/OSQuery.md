@@ -1,13 +1,5 @@
 
-# OSQuery Documentation
-
-## Inhaltsverzeichnis
-1. [Lernziele](#lernziele)
-2. [Recherche - OSQuery](#recherche---osquery)
-3. [Konfiguration und Testing](#konfiguration-und-testing)
-4. [Platzhalter für Screenshots](#platzhalter-für-screenshots)
-
----
+# OSQuery Dokumentation
 
 ## 1. Lernziele
 - Die Applikation OSQuery in eigenen Worten beschreiben.
@@ -71,7 +63,13 @@ Das auf unserem System installierte Config-File hat den folgenden Inhalt:
 4. **Packs**: Ermöglicht die Integration von vordefinierten Abfragelisten.
 5. **Feature Vectors**: Unterstützt einfache statistische Analysen (derzeit nur auf Windows).
 
-### Testing von OSQuery
+### Installation Testing von OSQuery
+
+#### Installation:
+
+![Bild](/../_Images/osquery1.png)
+![Bild](/../_Images/osquery2.png)
+
 Für den ersten Test wurde folgende Abfrage verwendet:
 ```sql
 SELECT * FROM programs;
@@ -80,16 +78,4 @@ SELECT * FROM programs;
 - Hostname: `dc.windomain.local`
 - Es wurden 13 installierte Programme erkannt.
 
----
-
-## 4. Platzhalter für Screenshots
-
-1. **Abfrageergebnisse**: *(Platzhalter für Screenshot der Abfrage `SELECT * FROM programs;` einfügen.)*
-2. **Konfiguration im OSQuery Config-File**: *(Platzhalter für Screenshot des Config-Files einfügen.)*
-3. **Ergebnisübersicht im OSQuery-Dashboard**: *(Platzhalter für Screenshot des Dashboards einfügen.)*
-4. **Test-Ergebnisse in der Web-Oberfläche**: *(Platzhalter für Screenshot der Kolide Fleet Oberfläche einfügen.)*
-
----
-
-## Fazit
-OSQuery ist ein vielseitiges Werkzeug, das eine umfassende Überwachung und Verwaltung von Systemen ermöglicht. Die Integration auf unserem System wurde erfolgreich getestet, und die Abfragen liefern nützliche Informationen für die IT-Compliance und Sicherheitsüberwachung.
+![Bild](/../_Images/osquery3.png)

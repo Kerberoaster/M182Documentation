@@ -1,35 +1,47 @@
 # Infrastruktur-Dokumentation: Detection-LAB
 
-## Inhaltsverzeichnis
-- [Infrastruktur-Dokumentation: Detection-LAB](#infrastruktur-dokumentation-detection-lab)
-  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-  - [Netzwerk-Diagramm](#netzwerk-diagramm)
-  - [Beschreibung der VMs](#beschreibung-der-vms)
-    - [Domain Controller (DC)](#domain-controller-dc)
-    - [Logger-VM](#logger-vm)
-    - [Windows-Client](#windows-client)
-  - [Infrastruktur-Setup](#infrastruktur-setup)
-    - [Vagrantfile: Sinn und Zweck](#vagrantfile-sinn-und-zweck)
-    - [Provisioning-Skripte](#provisioning-skripte)
-    - [Beschreibung der Skripte](#beschreibung-der-skripte)
-      - [`bootstrap.sh`](#bootstrapsh)
-      - [`ELK.sh`](#elksh)
-  - [Netzwerkkonnektivität](#netzwerkkonnektivität)
-  - [Fazit](#fazit)
-
----
-
 ## Netzwerk-Diagramm
 
 | VM              | IP-Adresse (privat) | IP-Adresse (NAT) | Subnetzmaske    | Gateway        |
 |------------------|---------------------|------------------|-----------------|----------------|
 | **Domain Controller (DC)** | 192.168.60.102 | 10.0.2.15        | 255.255.255.0   | 192.168.60.1   |
-| **Logger-VM**   | 192.168.60.105      | 10.0.2.15        | 255.255.255.0   | 192.168.60.1   |
-| **Windows-Client** | 192.168.60.104   | 10.0.2.15        | 255.255.255.0   | 192.168.60.1   |
+| **Logger-VM**   | 192.168.60.105      | 10.0.2.14        | 255.255.255.0   | 192.168.60.1   |
+| **Windows-Client** | 192.168.60.104   | 10.0.2.13        | 255.255.255.0   | 192.168.60.1   |
+
+```plantuml
+@startuml
+skinparam linetype ortho
+skinparam nodeStyle rectangle
+
+package "Logger Umgebung" {
+    node "Domain Controller (DC)" as DC {
+        [Privat: 192.168.60.102\nNAT: 10.0.2.15\nSubnetz: 255.255.255.0\nGateway: 192.168.60.1]
+    }
+    
+    node "Logger-VM" as Logger {
+        [Privat: 192.168.60.105\nNAT: 10.0.2.14\nSubnetz: 255.255.255.0\nGateway: 192.168.60.1]
+    }
+    
+    node "Windows-Client" as Client {
+        [Privat: 192.168.60.104\nNAT: 10.0.2.13\nSubnetz: 255.255.255.0\nGateway: 192.168.60.1]
+    }
+}
+
+
+
+Client -up-> "Internet" 
+DC -up-> "Internet" 
+Logger -up-> "Internet" 
+Client -down-> "Logging Netz" 
+DC -down-> "Logging Netz" 
+Logger -down-> "Logging Netz" 
+
+@enduml
+```
 
 **Hinweis:** Jede VM besitzt zwei Netzwerkadapter:
 1. **Privates Netzwerk (192.168.60.0/24):** Ermöglicht die Kommunikation zwischen den VMs.
-2. **NAT-Netzwerk (10.0.2.15):** Ermöglicht den Zugriff auf das Internet.
+2. **NAT-Netzwerk (10.0.2.0):** Ermöglicht den Zugriff auf das Internet.
 
 ---
 
@@ -44,8 +56,9 @@
   - Active Directory (AD)
   - Windows Server 2019
 - **Zugriffsmöglichkeiten:**
-  - Remote Desktop mit `192.168.60.102`.
-- **Technische Details:**
+  - Kibana GUI: `http://192.168.60.105:5601`
+  - Server Manager: -
+- **Technische Details (Meine Config):**
   - **RAM:** 3072 MB
   - **CPU:** 2 Cores
   - **Netzwerk:** 1 Gbit/s Ethernet
@@ -63,7 +76,7 @@
 - **Zugriffsmöglichkeiten:**
   - Kibana GUI: `http://192.168.60.105:5601`
   - SSH-Verbindung über `192.168.60.105`.
-- **Technische Details:**
+- **Technische Details (Meine Config):**
   - **RAM:** 4096 MB
   - **CPU:** 2 Cores
   - **Netzwerk:** 1 Gbit/s Ethernet
@@ -80,8 +93,8 @@
   - OSQuery
   - Sysinternals Suite
 - **Zugriffsmöglichkeiten:**
-  - Remote Desktop mit `192.168.60.104`.
-- **Technische Details:**
+  - Kibana GUI: `http://192.168.60.105:5601`
+- **Technische Details (Meine Config):**
   - **RAM:** 2048 MB
   - **CPU:** 2 Cores
   - **Netzwerk:** 1 Gbit/s Ethernet
@@ -123,9 +136,3 @@ Die Skripte automatisieren die Installation und Konfiguration der Dienste:
 
 ---
 
-## Fazit
-Dieses Dokument beschreibt die Struktur und den Aufbau der Detection-LAB-Umgebung. Jede Komponente spielt eine spezifische Rolle, um eine sichere und funktionsfähige Testumgebung zu gewährleisten. Die interne Kommunikation zwischen den VMs und die Anbindung ans Internet sind sichergestellt.
-
----
-
-**Hinweis:** Für spezifische Konfigurationen und Skriptinhalte siehe die bereitgestellten Dateien.

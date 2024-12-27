@@ -1,8 +1,6 @@
 # Dokumentation: Security Dashboards und Rules
 
-## 1.3 Aufträge und Bewertungskriterien
-
-### **Recherche - Security Dashboards/Rules (0-4P)**
+## **Recherche - Security Dashboards/Rules**
 
 #### Aufbau von Security Rules:
 Security Rules in Elastic dienen dazu, verdächtige Aktivitäten in den Logs zu erkennen und automatisch darauf zu reagieren. Jede Regel ist wie folgt aufgebaut:
@@ -23,11 +21,11 @@ Security Rules in Elastic dienen dazu, verdächtige Aktivitäten in den Logs zu 
    - **Additional look-back time:** Legt fest, wie weit in die Vergangenheit die Logs überprüft werden.
 
 #### Beispiel-Screenshot zum Aufbau:
-![Aufbau Security Rule](upload:file-4AhZohHy9zCiVzx2yG1tyD)
+![Bild](/../_Images/alertt1.png)
 
 ---
 
-### **Testing und Doku (0-8P)**
+### **Testing und Doku **
 
 #### Beispiel-Regel: "Suspicious Cmd Execution via WMI"
 Diese Regel identifiziert verdächtige Befehlsausführungen über die Windows Management Instrumentation (WMI) auf einem Remote-Host. Dies kann auf laterale Bewegungen eines Angreifers hinweisen.
@@ -53,7 +51,7 @@ Mit zwei verschiedenen Regeln habe ich versucht, Alerts zu generieren. Die Logs 
 
 **Beweis für den Versuch:**
 - Screenshot der Logs:
-  ![Logs WMI Rule](upload:file-4AhZohHy9zCiVzx2yG1tyD)
+![Bild](/../_Images/alert2.png)
 - Screenshot der Settings für die getesteten Regeln:
-  ![Regel Einstellungen WMI](upload:file-4AhZohHy9zCiVzx2yG1tyD)
+![Bild](/../_Images/alert3.png)
 
